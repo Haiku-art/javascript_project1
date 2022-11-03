@@ -6,7 +6,10 @@ var toDo = JSON.parse(localStorage.getItem("to do")); //asettaa listan local sto
     lataaLista(); //kutsutaan funktiota joka lataa local storageen tallennetun listan. 
     }
 
-taustaVari() //hakee tallennetun taustavärin local storagesta
+taustaVari() //hakee tallennetun taustavärin ja emojin local storagesta
+emoji()
+
+
 
 document.getElementById('addBtn').addEventListener('click', lisaaListalle); //kuuntelija add-napille
 function lisaaListalle(){ //funktio ottaa tekstikentän "task" arvon (value) 
@@ -15,7 +18,7 @@ function lisaaListalle(){ //funktio ottaa tekstikentän "task" arvon (value)
 
         if (listalle == "" || listalle.length < 3){ // syötteen tarkistus. Ohjelma ei anna syottää tyhjää arvoa eikä lyhyempää kuin 3 merkkiä
             
-            document.getElementById('errorMessage').innerHTML = "Liian lyhyt syöte!";
+            document.getElementById('errorMessage').innerHTML = "Invalid input. Add at least three characters!";
             document.getElementById('task').style.backgroundColor = 'pink';
   
             
@@ -83,6 +86,7 @@ document.getElementById("lista2").addEventListener("dblclick", function(event) {
 document.getElementById('deleteList').addEventListener('click', poistaLista);
 function poistaLista(){
     localStorage.clear(); //tyhjentää local storagen
+    location.reload(); // lataa sivun uudelleen
     document.getElementById('lista2').innerHTML = ''; //tyhjentää elementit listalta
 }
 
@@ -98,15 +102,24 @@ document.getElementById('warning').innerHTML = "";
 }
 
 
-var laatikko = document.getElementById('header'),
+var laatikko = document.getElementById('header')
+var vaihtaja = document.getElementById('colorChanger'),
 colors = ['salmon', 'purple', 'orange', '#69DDC1',];
+emojis = ['&#128552;', '&#128580;', '&#128522;', '&#128526;',];
 
-    laatikko.onclick = function () { //hakee värejä taulukosta klikkauksien mukaan (shift ja push)
+    //hakee värejä ja emojeja taulukosta klikkauksien mukaan (shift ja push)
+    vaihtaja.onclick = function () {
     var color = colors.shift();
     colors.push(color);
 
+    var emoji = emojis.shift();
+    emojis.push(emoji);
+
     localStorage.setItem('bgcolor', color); //värin tallennus local storageen
     laatikko.style.backgroundColor = color; 
+
+    localStorage.setItem('emoji', emoji); //värin tallennus local storageen
+    document.getElementById('colorChanger').innerHTML = emoji;
    
     };
 
@@ -114,5 +127,18 @@ function taustaVari(){
     var valittuVari = localStorage.getItem('bgcolor'); 
     document.getElementById('header').style.backgroundColor = valittuVari;
 
+    var valittuEmoji = localStorage.getItem('emoji'); 
+    document.getElementById('colorChanger').innerHTML = valittuEmoji;
+
 }
 
+function emoji(){
+    
+    var valittuEmoji = localStorage.getItem('emoji'); 
+    if (valittuEmoji == null){
+        document.getElementById('colorChanger').innerHTML = '&#128526;';
+    } else {
+    document.getElementById('colorChanger').innerHTML = valittuEmoji;
+
+    }
+   };

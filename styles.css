@@ -48,17 +48,19 @@ table, th, td {
 #addBtn{
     background-color: #69DDC1;
     margin-top: 5px;
-    color: #2e6054;
-    font-weight: 100;
+    color: #16a483;
+    font-weight: bold;
     border-radius: 5px;
     border-color: #84ebd3;
+    cursor: pointer;
 }
 #deleteList{
     float: right;
-    color: rgb(254, 228, 219);
-    font-weight: 100;
+    color: rgb(253, 215, 202);
+    font-weight: bold;
     background-color: coral;
     border-radius: 5px; border: 0,5px; border-color: rgb(243, 131, 91);
+    cursor: pointer;
 }
 
 #task{
@@ -103,5 +105,11 @@ hr{
     height: 2px;
     border: 0px;
 
+}
+
+#colorChanger{
+    float: right;
+    cursor: pointer;
+    font-size:20px;
 }
 
